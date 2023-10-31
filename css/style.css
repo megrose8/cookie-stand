@@ -1,0 +1,27 @@
+header{
+    background-color: black;
+    color: salmon;
+    font-family:  'Righteous', sans-serif; ;
+    height: 100px;
+    text-align: center;
+    font-style: italic;
+}
+nav{
+    background-color: salmon;
+    height: 40px;
+}
+h2{
+    font-family: 'Righteous', sans-serif;
+}
+ul{
+    list-style: none;
+}
+footer{
+    background-color: rgb(188, 183, 183);
+    height: 100px;
+    text-align: center;
+}
+p{
+    color: aqua;
+}
+
