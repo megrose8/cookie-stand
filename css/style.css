@@ -9,12 +9,15 @@ header{
 nav{
     background-color: salmon;
     height: 40px;
+    text-align: left;
+    font-style: normal;
 }
 h2{
     font-family: 'Righteous', sans-serif;
 }
 ul{
     list-style: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 footer{
     background-color: rgb(188, 183, 183);
