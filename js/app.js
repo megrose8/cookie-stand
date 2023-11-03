@@ -1,9 +1,10 @@
+//global and helper functions
 const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 let grandTotal = 0;
 function randomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
-//she construct
+//Constructur function
 function LocationSales(location, minCustomers,maxCustomers,avgCookiesPerSale) {
   this.location = location;
   this.minCustomers = minCustomers;
@@ -12,6 +13,7 @@ function LocationSales(location, minCustomers,maxCustomers,avgCookiesPerSale) {
   this.sales = this.estimateSales();
   this.dailyTotalSum = 0;
 }
+
 //method:creating the randomly gen numbers for this.sales
 LocationSales.prototype.estimateSales = function() {
   const sales = [];   
@@ -22,7 +24,6 @@ LocationSales.prototype.estimateSales = function() {
   }
   return sales;
 };
-
 
 //now we make table
  const containerElem = document.getElementById('salesData');
@@ -47,7 +48,7 @@ const lima =  new LocationSales('Lima', 2, 16, 4.6);
 
 //array of all objects for footer row
 const cities = [seattle, tokyo, dubai, paris, lima]
-// let dailyTotalSum = [this.sales]
+
 
 //now we make the specs of the table
 function renderHeaderRow(tableElem){
@@ -68,9 +69,11 @@ cell.textContent = 'Locations';
 } 
 
 //Prototyping of Location Sales:
+
     LocationSales.prototype.render= function() {
     const row = document.createElement('tr');
     tableElem.appendChild(row);
+
     const cell = document.createElement('th');
     row.appendChild(cell);
     cell.textContent = this.location;
@@ -89,8 +92,7 @@ cell.textContent = 'Locations';
     row.appendChild(totalDailyCell)
     totalDailyCell.textContent =this.dailyTotalSum;
 };
-
-    
+  
 //hourly totals footer row
     function renderFooterRow(tableElem){
       const row = document.createElement('tr');
@@ -112,5 +114,45 @@ cell.textContent = 'Locations';
     salesForAllLocations.textContent = grandTotal
   }
 
+//form
+
+ const  locationForm = document.getElementById('newStoreForm');
+
+ //event listeners
+
+ locationForm.addEventListener('submit',
+    function (event) {
+      event.preventDefault();
+      const locationName =event.target.locationName.value;
+      const newMinCust = parseInt(event.target.newMinCust.value);
+          const newMaxCust = parseInt(event.target.newMaxCust.value);
+          const newAvgCookie = parseInt(event.target.newAvgCookie.value);
+
+
+    const newLocation = new LocationSales(locationName, newMinCust, newMaxCust,newAvgCookie);
+    console.log(newLocation)
+    newLocation.estimateSales();
+    locationForm.reset();
+    newLocation.render();
+    cities.push(newLocation);
+    renderFooterRow();
+    })
+
+//helper functions//
+
+//  )
+function renderFooterRow(){
+
+  let tfoot=document.querySelector('tfoot');
+  
+  if(tfoot){
+    tfoot.innerHTML = "";
+  } else {
+  tfoot = document.createElement('tfoot');
+  tableElem.appendChild(tfoot);
+  }
+
+  
+}
 //here we make table appear!
 renderTable();
