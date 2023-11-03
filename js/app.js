@@ -69,7 +69,6 @@ cell.textContent = 'Locations';
 } 
 
 //Prototyping of Location Sales:
-
     LocationSales.prototype.render= function() {
     const row = document.createElement('tr');
     tableElem.appendChild(row);
@@ -86,36 +85,12 @@ cell.textContent = 'Locations';
       for (let i = 0; i< this.sales.length; i++){
       this.dailyTotalSum += this.sales[i];
       grandTotal +=this.sales[i]
-      console.log (grandTotal)
       }
     const totalDailyCell = document.createElement('td');
     row.appendChild(totalDailyCell)
     totalDailyCell.textContent =this.dailyTotalSum;
 };
-  
-//hourly totals footer row
-    function renderFooterRow(tableElem){
-      const row = document.createElement('tr');
-      tableElem.appendChild(row);
-      const cell = document.createElement('th');
-      row.appendChild(cell);
-    cell.textContent = 'Hourly Totals for All';
-        for (let i=0; i<hours.length; i++){
-          let hourlyTotals = 0;
-          const totalCell = document.createElement('td');
-          row.appendChild(totalCell);
-              for (let k=0; k<cities.length; k++){
-              hourlyTotals += cities[k].sales[i]
-              }
-         totalCell.textContent=  hourlyTotals;
-    }
-    const salesForAllLocations = document.createElement('td');
-    row.appendChild(salesForAllLocations);
-    salesForAllLocations.textContent = grandTotal
-  }
-
 //form
-
  const  locationForm = document.getElementById('newStoreForm');
 
  //event listeners
@@ -135,24 +110,47 @@ cell.textContent = 'Locations';
     locationForm.reset();
     newLocation.render();
     cities.push(newLocation);
-    renderFooterRow();
+    renderNewRow();
+    document.getElementById('footerRowTotal').remove();
+    renderFooterRow(tableElem);
     })
 
 //helper functions//
+function renderNewRow(){
 
-//  )
-function renderFooterRow(){
-
-  let tfoot=document.querySelector('tfoot');
+  let tnew=document.querySelector('tnew');
   
-  if(tfoot){
-    tfoot.innerHTML = "";
+  if(tnew){
+    tnew.innerHTML = "";
   } else {
-  tfoot = document.createElement('tfoot');
-  tableElem.appendChild(tfoot);
+  tnew = document.createElement('new');
+  tableElem.appendChild(tnew);
   }
 
   
 }
+//hourly totals footer row
+function renderFooterRow(tableElem){
+  const row = document.createElement('tfoot');
+  row.id = 'footerRowTotal';
+  tableElem.appendChild(row);
+  const cell = document.createElement('th');
+  row.appendChild(cell);
+cell.textContent = 'Hourly Totals for All';
+    for (let i=0; i<hours.length; i++){
+      let hourlyTotals = 0;
+      const totalCell = document.createElement('td');
+      row.appendChild(totalCell);
+          for (let k=0; k<cities.length; k++){
+          hourlyTotals += cities[k].sales[i]
+          }
+     totalCell.textContent=  hourlyTotals;
+}
+const salesForAllLocations = document.createElement('td');
+row.appendChild(salesForAllLocations);
+salesForAllLocations.textContent = grandTotal
+}
+
+console.log(grandTotal)
 //here we make table appear!
 renderTable();
