@@ -27,7 +27,8 @@ LocationSales.prototype.estimateSales = function() {
 
 //now we make table
  const containerElem = document.getElementById('salesData');
-  const tableElem = document.createElement('table');
+const tableElem = document.createElement('table');
+tableElem.className = 'sales-table';
 containerElem.appendChild(tableElem);
 function renderTable (){
 renderHeaderRow(tableElem);
@@ -53,6 +54,7 @@ const cities = [seattle, tokyo, dubai, paris, lima]
 //now we make the specs of the table
 function renderHeaderRow(tableElem){
 const row = document.createElement('tr');
+
 tableElem.appendChild(row);
 const cell = document.createElement('th');
 row.appendChild(cell);
@@ -72,7 +74,6 @@ cell.textContent = 'Locations';
     LocationSales.prototype.render= function() {
     const row = document.createElement('tr');
     tableElem.appendChild(row);
-
     const cell = document.createElement('th');
     row.appendChild(cell);
     cell.textContent = this.location;
